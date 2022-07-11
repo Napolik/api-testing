@@ -1,5 +1,21 @@
+.wrapper {
+  font-family: sans-serif;
+  display: flex;
+}
+
+.posts, .users {
+  width: 50%;
+  display: block;
+}
+
 .posts__list {
   position: relative;
+}
+
+.posts__list li {
+  font-size: 13px;
+  list-style-type: none;
+  padding: 2px 0;
 }
 
 .posts__single-post {
@@ -8,7 +24,7 @@
   width: 30vh;
   left: 0;
   right: 0;
-  top: 50vh;
+  top: 20vh;
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
@@ -22,4 +38,32 @@
 .posts__single-post .title {
   color: azure;
   padding-bottom: 20px;
+}
+
+.user-card {
+  padding: 20px;
+  background-color: coral;
+  color: white;
+}
+
+.user-list li {
+  font-size: 12px;
+  list-style-type: none;
+  padding: 3px 0;
+}
+
+.user-list li a {
+  color: black;
+}
+
+.user-thumbs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.user-thumbs img {
+  width: 56px;
+  height: 56px
 }
