@@ -1,0 +1,25 @@
+.posts__list {
+  position: relative;
+}
+
+.posts__single-post {
+  position: fixed;
+  background-color: cadetblue;
+  width: 30vh;
+  left: 0;
+  right: 0;
+  top: 50vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  display: none;
+}
+
+.posts__single-post.active {
+  display: block;
+}
+
+.posts__single-post .title {
+  color: azure;
+  padding-bottom: 20px;
+}
