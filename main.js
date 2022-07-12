@@ -69,6 +69,7 @@ class UserList extends HTMLElement {
         const id = e.target.href.split('#')[1].split('=')[1];
         this.getUserCard(id);
         this.getUserPhotos(id);
+        this.getUserTodos(id);
       }
 
     });
@@ -92,6 +93,37 @@ class UserList extends HTMLElement {
         .then(data => this.showUserPhotos(data) )
   }
 
+  getUserTodos(id) {
+    fetch('https://jsonplaceholder.typicode.com/users/' + id + '/todos')
+        .then(response => response.json())
+        .then(data => this.showUserTodos(data)  )
+  }
+
+  showUserTodos(data) {
+    const userTodos = this.querySelector('.user-todos');
+    userTodos.innerHTML = '';
+
+    for (let i = 0; i < data.length; i++ ) {
+      const {userId, id, title, completed} = data[i];
+
+      const task = document.createElement('div');
+      task.classList.add('task');
+      const userIdEl = document.createElement('div');
+      const idEl = document.createElement('div');
+      const titleEl = document.createElement('div');
+      const completedEl = document.createElement('div');
+      const completedStr = completed ? 'OK' : 'X';
+
+      userIdEl.innerHTML = 'UserId: ' + userId;
+      idEl.innerHTML = 'TaskId: ' + id;
+      titleEl.innerHTML = 'Taskname: ' + title;
+      completedEl.innerHTML = 'Status: ' + completedStr;
+
+      task.append(userIdEl, idEl, titleEl, completedEl);
+      userTodos.append(task);
+    }
+  }
+
   showUserPhotos(data) {
     const userThumbs = this.querySelector('.user-thumbs');
     userThumbs.innerHTML = '';
@@ -112,11 +144,11 @@ class UserList extends HTMLElement {
     userCard.innerHTML = '';
 
     const nameEl = document.createElement('li');
-    const usernameEl =  document.createElement('li');
-    const emailEl =  document.createElement('li');
-    const phoneEl =  document.createElement('li');
-    const websiteEl =  document.createElement('li');
-    const companyEl =  document.createElement('li');
+    const usernameEl = document.createElement('li');
+    const emailEl = document.createElement('li');
+    const phoneEl = document.createElement('li');
+    const websiteEl = document.createElement('li');
+    const companyEl = document.createElement('li');
 
     nameEl.innerHTML = 'Name: ' + data.name;
     usernameEl.innerHTML = 'Username: ' + data.username;
@@ -140,6 +172,7 @@ class UserList extends HTMLElement {
       nameElement.innerHTML = '<a href="#id=' + id + '">' + name + '</a>';
       this.querySelector('.user-list').append(nameElement);
     }
+
   }
 }
 
