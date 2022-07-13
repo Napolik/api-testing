@@ -23,7 +23,7 @@ class PostList extends HTMLElement {
   }
 
   showSinglePost(data) {
-    const singlePost = this.querySelector('.posts__single-post');
+    const singlePost = document.querySelector('.posts__single-post');
     singlePost.classList.add('active');
     singlePost.innerHTML = '';
 
@@ -100,20 +100,19 @@ class UserList extends HTMLElement {
   }
 
   showUserTodos(data) {
-    const userTodos = this.querySelector('.user-todos');
+    const userTodos = document.querySelector('.user-todos');
     userTodos.innerHTML = '';
 
     for (let i = 0; i < data.length; i++ ) {
       const {userId, id, title, completed} = data[i];
-
       const task = document.createElement('div');
-      task.classList.add('task');
       const userIdEl = document.createElement('div');
       const idEl = document.createElement('div');
       const titleEl = document.createElement('div');
       const completedEl = document.createElement('div');
       const completedStr = completed ? 'OK' : 'X';
 
+      task.classList.add('task');
       userIdEl.innerHTML = 'UserId: ' + userId;
       idEl.innerHTML = 'TaskId: ' + id;
       titleEl.innerHTML = 'Taskname: ' + title;
@@ -125,7 +124,7 @@ class UserList extends HTMLElement {
   }
 
   showUserPhotos(data) {
-    const userThumbs = this.querySelector('.user-thumbs');
+    const userThumbs = document.querySelector('.user-thumbs');
     userThumbs.innerHTML = '';
 
     for (let i = 0; i < data.length; i++ ) {
@@ -140,7 +139,7 @@ class UserList extends HTMLElement {
   }
 
   showUserCard(data) {
-    const userCard = this.querySelector('.user-card');
+    const userCard = document.querySelector('.user-card');
     userCard.innerHTML = '';
 
     const nameEl = document.createElement('li');

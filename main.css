@@ -3,13 +3,45 @@
   padding: 0;
 }
 
+header {
+
+}
+
+.logo {
+  height: 40px;
+  padding: 20px;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: aliceblue;
+}
+
 .wrapper {
   font-family: sans-serif;
   display: flex;
-  padding: 40px 20px;
 }
 
-.posts, .users {
+.sidebar {
+  width: 150px;
+  padding: 20px;
+  background-color: cornflowerblue;
+}
+
+.sidebar a {
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 150px);
+  padding: 10px;
+}
+
+.posts {
   width: 50%;
   display: block;
 }
@@ -48,12 +80,17 @@
 
 .user-card {
   padding: 20px;
-  background-color: coral;
-  color: white;
+  margin: 10px;
+  background-color: rgba(150,150,150,0.41);
+  color: black;
+  border-radius: 10px;
+  width: calc(50% - 60px);
+  height: 210px;
 }
 
 .user-card li {
   list-style-type: none;
+  padding: 3px 0;
 }
 
 .user-list li {
@@ -62,26 +99,29 @@
   padding: 3px 0;
 }
 
-.user-list li a {
-  color: black;
-}
-
 .user-thumbs {
+  width: calc(50% - 60px);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
+  padding: 20px;
+  margin: 10px;
+  background-color: rgba(203,203,203,0.2);
+  border-radius: 10px;
+  justify-content: center;
 }
 
 .user-thumbs img {
-  width: 56px;
-  height: 56px
+  width: 36px;
+  height: 36px;
 }
 
 .user-todos {
   display: flex;
   flex-wrap: wrap;
+  padding: 10px;
 }
 
 .task {

@@ -5,17 +5,27 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
+<header>
+  <div class="logo">Logo</div>
+</header>
 <div class="wrapper">
-  <post-list class="posts">
-    <ul class="posts__list"></ul>
-    <div class="posts__single-post"></div>
-  </post-list>
-  <user-list class="users">
-    <div class="user-list"></div>
+  <div class="sidebar">
+    <user-list class="users">
+      <div class="user-list"></div>
+    </user-list>
+  </div>
+  <div class="content">
     <div class="user-card"></div>
     <div class="user-thumbs"></div>
     <div class="user-todos"></div>
-  </user-list>
+
+    <post-list class="posts">
+      <ul class="posts__list"></ul>
+      <div class="posts__single-post"></div>
+    </post-list>
+  </div>
+
+
 </div>
 
 <script src="main.js"></script>
