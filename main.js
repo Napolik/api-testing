@@ -24,18 +24,17 @@ class PostList extends HTMLElement {
 
   showSinglePost(data) {
     const singlePost = document.querySelector('.posts__single-post');
-    singlePost.classList.add('active');
-    singlePost.innerHTML = '';
-
     const titleEl = document.createElement('div');
-    titleEl.classList.add('title');
     const bodyEl = document.createElement('div');
-    bodyEl.classList.add('body');
+
+    singlePost.innerHTML = '';
+    singlePost.classList.add('active');
+    titleEl.classList.add('title');
     titleEl.innerHTML = data.title;
+    bodyEl.classList.add('body');
     bodyEl.innerHTML = data.body;
 
-    singlePost.append(titleEl);
-    singlePost.append(bodyEl);
+    singlePost.append(titleEl, bodyEl);
   }
 
   getPosts() {
@@ -68,8 +67,8 @@ class UserList extends HTMLElement {
       if (e.target.tagName === 'A') {
         const id = e.target.href.split('#')[1].split('=')[1];
 
-        this.getContent('users/' + id, this.showUserCard );
-        this.getContent('albums/' + id + '/photos', this.showUserPhotos );
+        this.getContent('users/' + id, this.showUserCard);
+        this.getContent('albums/' + id + '/photos', this.showUserPhotos);
         this.getContent('users/' + id + '/todos', this.showUserTodos);
       }
 
@@ -80,7 +79,7 @@ class UserList extends HTMLElement {
     const URL = 'https://jsonplaceholder.typicode.com/' + source;
     fetch(URL)
         .then(response => response.json())
-        .then(data => callback(data) )
+        .then(data => callback(data))
   }
 
   showUserTodos(data) {
