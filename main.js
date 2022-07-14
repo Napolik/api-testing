@@ -24,18 +24,17 @@ class PostList extends HTMLElement {
 
   showSinglePost(data) {
     const singlePost = document.querySelector('.posts__single-post');
-    singlePost.classList.add('active');
-    singlePost.innerHTML = '';
-
     const titleEl = document.createElement('div');
-    titleEl.classList.add('title');
     const bodyEl = document.createElement('div');
-    bodyEl.classList.add('body');
+
+    singlePost.innerHTML = '';
+    singlePost.classList.add('active');
+    titleEl.classList.add('title');
     titleEl.innerHTML = data.title;
+    bodyEl.classList.add('body');
     bodyEl.innerHTML = data.body;
 
-    singlePost.append(titleEl);
-    singlePost.append(bodyEl);
+    singlePost.append(titleEl, bodyEl);
   }
 
   getPosts() {
@@ -63,40 +62,24 @@ class UserList extends HTMLElement {
   constructor() {
     super()
 
-    this.getUsers();
+    this.getContent('users', this.insertUsers );
     this.addEventListener('click', (e) => {
       if (e.target.tagName === 'A') {
         const id = e.target.href.split('#')[1].split('=')[1];
-        this.getUserCard(id);
-        this.getUserPhotos(id);
-        this.getUserTodos(id);
+
+        this.getContent('users/' + id, this.showUserCard);
+        this.getContent('albums/' + id + '/photos', this.showUserPhotos);
+        this.getContent('users/' + id + '/todos', this.showUserTodos);
       }
 
     });
   }
 
-  getUsers() {
-    fetch('https://jsonplaceholder.typicode.com/users')
+  getContent(source, callback) {
+    const URL = 'https://jsonplaceholder.typicode.com/' + source;
+    fetch(URL)
         .then(response => response.json())
-        .then(data => this.insertUsers(data) )
-  }
-
-  getUserCard(id) {
-    fetch('https://jsonplaceholder.typicode.com/users/' + id)
-        .then(response => response.json())
-        .then(data => this.showUserCard(data) )
-  }
-
-  getUserPhotos(id) {
-    fetch('https://jsonplaceholder.typicode.com/albums/' + id + '/photos')
-        .then(response => response.json())
-        .then(data => this.showUserPhotos(data) )
-  }
-
-  getUserTodos(id) {
-    fetch('https://jsonplaceholder.typicode.com/users/' + id + '/todos')
-        .then(response => response.json())
-        .then(data => this.showUserTodos(data)  )
+        .then(data => callback(data))
   }
 
   showUserTodos(data) {
@@ -105,21 +88,14 @@ class UserList extends HTMLElement {
 
     for (let i = 0; i < data.length; i++ ) {
       const {userId, id, title, completed} = data[i];
-      const task = document.createElement('div');
-      const userIdEl = document.createElement('div');
-      const idEl = document.createElement('div');
-      const titleEl = document.createElement('div');
-      const completedEl = document.createElement('div');
       const completedStr = completed ? 'OK' : 'X';
 
-      task.classList.add('task');
-      userIdEl.innerHTML = 'UserId: ' + userId;
-      idEl.innerHTML = 'TaskId: ' + id;
-      titleEl.innerHTML = 'Taskname: ' + title;
-      completedEl.innerHTML = 'Status: ' + completedStr;
-
-      task.append(userIdEl, idEl, titleEl, completedEl);
-      userTodos.append(task);
+      userTodos.innerHTML +=  '<div class="task">' +
+                                '<div>UserId: ' + userId + '</div>' +
+                                '<div>TaskId: ' + id + '</div>' +
+                                '<div>Task title: ' + title + '</div>' +
+                                '<div>Status: ' + completedStr + '</div>' +
+                              '</div>';
     }
   }
 
@@ -128,36 +104,26 @@ class UserList extends HTMLElement {
     userThumbs.innerHTML = '';
 
     for (let i = 0; i < data.length; i++ ) {
-      const title = data[i].title;
-      const thumb = data[i].thumbnailUrl;
-      const thumbEl = document.createElement('img');
+      const {title, thumbnailUrl} = data[i];
+      const img = document.createElement('img');
 
-      thumbEl.setAttribute('src', thumb);
-      thumbEl.setAttribute('alt', title);
-      userThumbs.append(thumbEl);
+      img.setAttribute('src', thumbnailUrl);
+      img.setAttribute('alt', title);
+      userThumbs.append(img);
     }
   }
 
   showUserCard(data) {
     const userCard = document.querySelector('.user-card');
+    const { name, username, email, phone, website, company } = data;
+
     userCard.innerHTML = '';
-
-    const nameEl = document.createElement('li');
-    const usernameEl = document.createElement('li');
-    const emailEl = document.createElement('li');
-    const phoneEl = document.createElement('li');
-    const websiteEl = document.createElement('li');
-    const companyEl = document.createElement('li');
-
-    nameEl.innerHTML = 'Name: ' + data.name;
-    usernameEl.innerHTML = 'Username: ' + data.username;
-    emailEl.innerHTML = 'Email: ' + data.email;
-    phoneEl.innerHTML = 'Phone: ' + data.phone;
-    websiteEl.innerHTML = 'Website: ' + data.website;
-    companyEl.innerHTML = 'Company: ' + data.company.name;
-
-    userCard.append(nameEl, usernameEl, emailEl, phoneEl, websiteEl, companyEl);
-
+    userCard.innerHTML = '<div><span>Name:</span> ' + name + '</div>' +
+                         '<div><span>UserName:</span> ' + username + '</div>' +
+                         '<div><span>Email:</span> ' + email + '</div>' +
+                         '<div><span>Phone:</span> ' + phone + '</div>' +
+                         '<div><span>Website:</span> ' + website + '</div>' +
+                         '<div><span>Company:</span> ' + company.name + '</div>';
   }
 
   insertUsers(data) {
@@ -169,7 +135,7 @@ class UserList extends HTMLElement {
       const nameElement = document.createElement('li');
 
       nameElement.innerHTML = '<a href="#id=' + id + '">' + name + '</a>';
-      this.querySelector('.user-list').append(nameElement);
+      document.querySelector('.user-list').append(nameElement);
     }
 
   }

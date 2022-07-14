@@ -86,11 +86,15 @@ header {
   border-radius: 10px;
   width: calc(50% - 60px);
   height: 210px;
+  font-weight: bold;
 }
 
-.user-card li {
-  list-style-type: none;
-  padding: 3px 0;
+.user-card div {
+  padding: 5px 0;
+}
+
+.user-card span {
+  font-weight: normal;
 }
 
 .user-list li {
